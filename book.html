@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Registration Form</title>
+      <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-image: url(water.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: right;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+    <script>
+    function validateForm() {
+      var title = document.getElementById("title").value;
+      var author = document.getElementById("author").value;
+      var isbn = document.getElementById("isbn").value;
+      var publication_date = document.getElementById("publication_date").value;
+      var genre = document.getElementById("genre").value;
+      var price = document.getElementById("price").value;
+      var publisher = document.getElementById("publisher").value;
+      var language = document.getElementById("language").value;
+      var quantity = document.getElementById("quantity").value;
+
+      var errorMessages = [];
+
+      if (title === "") {
+        errorMessages.push("Title is required.");
+      }
+
+      if (author === "") {
+        errorMessages.push("Author is required.");
+      }
+
+      if (isbn === "") {
+        errorMessages.push("ISBN is required.");
+      }
+
+      if (publication_date === "") {
+        errorMessages.push("Publication Date is required.");
+      }
+
+      if (genre === "") {
+        errorMessages.push("Genre is required.");
+      }
+
+      if (price === "") {
+        errorMessages.push("Price is required.");
+      } else if (isNaN(price)) {
+        errorMessages.push("Price must be a number.");
+      }
+
+      if (publisher === "") {
+        errorMessages.push("Publisher is required.");
+      }
+
+      if (language === "") {
+        errorMessages.push("Language is required.");
+      }
+
+      if (quantity === "") {
+        errorMessages.push("Quantity is required.");
+      } else if (isNaN(quantity)) {
+        errorMessages.push("Quantity must be a number.");
+      }
+
+      var errorContainer = document.getElementById("error-container");
+      errorContainer.innerHTML = "";
+
+      if (errorMessages.length > 0) {
+        for (var i = 0; i < errorMessages.length; i++) {
+          var errorMessage = document.createElement("p");
+          errorMessage.classList.add("error-message");
+          errorMessage.innerHTML = errorMessages[i];
+          errorContainer.appendChild(errorMessage);
+        }
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</head>
+<body>
+      <h1>Book Registration Form</h1>
+
+  <form action="/submit_registration" method="POST" onsubmit="return validateForm()">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" required>
+
+    <label for="isbn">ISBN:</label>
+    <input type="text" id="isbn" name="isbn" required>
+
+    <label for="publication_date">Publication Date:</label>
+    <input type="date" id="publication_date" name="publication_date" required>
+
+    <label for="genre">Genre:</label>
+    <select id="genre" name="genre" required>
+      <option value="">Select Genre</option>
+      <option value="Fiction">Fiction</option>
+      <option value="Non-Fiction">Non-Fiction</option>
+      <option value="Mystery">Mystery</option>
+      <option value="Science Fiction">Science Fiction</option>
+    </select>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" required>
+
+    <label for="publisher">Publisher:</label>
+    <input type="text" id="publisher" name="publisher" required>
+
+    <label for="language">Language:</label>
+    <input type="text" id="language" name="language" required>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" required>
+
+    <div id="error-container"></div>
+
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
